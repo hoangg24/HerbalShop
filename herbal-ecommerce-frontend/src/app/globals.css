@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* THÊM DÒNG NÀY: Ép Tailwind v4 quét toàn bộ component trong thư mục src */
+@source "../**/*.{js,ts,jsx,tsx,mdx}";

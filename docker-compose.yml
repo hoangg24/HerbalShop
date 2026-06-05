@@ -1,0 +1,93 @@
+version: '3.9'
+
+services:
+  # ── PostgreSQL ──────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: herbal_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: herbal_shop
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Redis ───────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: herbal_redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+
+  # ── Backend ─────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./herbal-ecommerce-backend
+      dockerfile: Dockerfile
+    container_name: herbal_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      PORT: 5000
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/herbal_shop?schema=public
+      CLIENT_URL: http://localhost:3000
+      JWT_SECRET: change_this_secret_in_production
+      JWT_EXPIRES_IN: 15m
+      JWT_REFRESH_SECRET: change_this_refresh_secret_in_production
+      JWT_REFRESH_EXPIRES_IN: 7d
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./herbal-ecommerce-backend:/app
+      - /app/node_modules
+    command: npm run dev
+
+  # ── Frontend (Next.js) ──────────────────────────────────────
+  frontend:
+    build:
+      context: ./herbal-ecommerce-frontend
+      dockerfile: Dockerfile
+    container_name: herbal_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:5000/api
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./herbal-ecommerce-frontend:/app
+      - /app/node_modules
+      - /app/.next
+
+  # ── Nginx ───────────────────────────────────────────────────
+  nginx:
+    image: nginx:alpine
+    container_name: herbal_nginx
+    restart: unless-stopped
+    depends_on:
+      - backend
+      - frontend
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+
+volumes:
+  postgres_data:
+  redis_data:
