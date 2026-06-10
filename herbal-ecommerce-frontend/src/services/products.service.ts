@@ -60,11 +60,6 @@ export const productsService = {
   getProductBySlug: (slug: string) =>
     api.get(`/products/${slug}`).then((r) => r.data),
 
-  getCategories: () => api.get("/categories").then((r) => r.data),
-
-  getCategoryBySlug: (slug: string) =>
-    api.get(`/categories/${slug}`).then((r) => r.data),
-
   // ── Vendor ──────────────────────────────────────────────
   getMyProducts: (params?: ProductsQuery) =>
     api

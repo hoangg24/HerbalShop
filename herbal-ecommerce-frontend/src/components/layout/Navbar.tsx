@@ -23,7 +23,8 @@ export function Navbar() {
     <header className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
       {/* Top bar */}
       <div className="bg-emerald-700 text-white text-xs py-1.5 text-center">
-        🌿 Miễn phí vận chuyển cho đơn hàng từ 299.000đ &nbsp;|&nbsp; Hotline: 0901 234 567
+        🌿 Miễn phí vận chuyển cho đơn hàng từ 299.000đ &nbsp;|&nbsp; Hotline:
+        0856694757
       </div>
 
       <div className="max-w-7xl mx-auto px-4">
@@ -34,8 +35,12 @@ export function Navbar() {
               <span className="text-white text-lg">🌿</span>
             </div>
             <div className="hidden sm:block">
-              <p className="font-bold text-emerald-800 text-base leading-tight">Herbal Shop</p>
-              <p className="text-emerald-600 text-[10px] leading-tight">Thiên nhiên & Sức khỏe</p>
+              <p className="font-bold text-emerald-800 text-base leading-tight">
+                Herbal Shop
+              </p>
+              <p className="text-emerald-600 text-[10px] leading-tight">
+                Thiên nhiên & Sức khỏe
+              </p>
             </div>
           </Link>
 
@@ -53,8 +58,18 @@ export function Navbar() {
                 type="submit"
                 className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg flex items-center justify-center transition-colors"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
                 </svg>
               </button>
             </div>
@@ -63,12 +78,29 @@ export function Navbar() {
           {/* Right actions */}
           <div className="flex items-center gap-1">
             {/* Cart */}
-            <Link href="/cart" className="relative flex flex-col items-center p-2 hover:bg-emerald-50 rounded-xl transition-colors group">
-              <svg className="w-6 h-6 text-gray-600 group-hover:text-emerald-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            <Link
+              href="/cart"
+              className="relative flex flex-col items-center p-2 hover:bg-emerald-50 rounded-xl transition-colors group"
+            >
+              <svg
+                className="w-6 h-6 text-gray-600 group-hover:text-emerald-600 transition-colors"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                />
               </svg>
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
-              <span className="text-[10px] text-gray-500 group-hover:text-emerald-600 hidden sm:block">Giỏ hàng</span>
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                0
+              </span>
+              <span className="text-[10px] text-gray-500 group-hover:text-emerald-600 hidden sm:block">
+                Giỏ hàng
+              </span>
             </Link>
 
             {/* User menu */}
@@ -88,20 +120,42 @@ export function Navbar() {
 
                 {menuOpen && (
                   <>
-                    <div className="fixed inset-0 z-10" onClick={() => setMenuOpen(false)} />
+                    <div
+                      className="fixed inset-0 z-10"
+                      onClick={() => setMenuOpen(false)}
+                    />
                     <div className="absolute right-0 top-full mt-1 w-52 bg-white rounded-2xl shadow-xl border border-gray-100 py-2 z-20">
                       <div className="px-4 py-2 border-b border-gray-100 mb-1">
-                        <p className="text-sm font-semibold text-gray-800">{user?.name}</p>
+                        <p className="text-sm font-semibold text-gray-800">
+                          {user?.name}
+                        </p>
                         <p className="text-xs text-gray-400">{user?.email}</p>
                       </div>
                       {[
-                        { label: "Tài khoản của tôi", href: "/account/profile", icon: "👤" },
-                        { label: "Đơn hàng của tôi", href: "/account/orders", icon: "📦" },
-                        { label: "Địa chỉ giao hàng", href: "/account/addresses", icon: "📍" },
+                        {
+                          label: "Tài khoản của tôi",
+                          href: "/account/profile",
+                          icon: "👤",
+                        },
+                        {
+                          label: "Đơn hàng của tôi",
+                          href: "/account/orders",
+                          icon: "📦",
+                        },
+                        {
+                          label: "Địa chỉ giao hàng",
+                          href: "/account/addresses",
+                          icon: "📍",
+                        },
                       ].map((item) => (
-                        <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setMenuOpen(false)}
+                        >
                           <div className="flex items-center gap-2.5 px-4 py-2 hover:bg-emerald-50 text-sm text-gray-700 hover:text-emerald-700 transition-colors">
-                            <span>{item.icon}</span>{item.label}
+                            <span>{item.icon}</span>
+                            {item.label}
                           </div>
                         </Link>
                       ))}
@@ -111,14 +165,20 @@ export function Navbar() {
                         <>
                           <div className="border-t border-gray-100 my-1" />
                           {user.role === "vendor" && (
-                            <Link href="/vendor/dashboard" onClick={() => setMenuOpen(false)}>
+                            <Link
+                              href="/vendor/dashboard"
+                              onClick={() => setMenuOpen(false)}
+                            >
                               <div className="flex items-center gap-2.5 px-4 py-2 hover:bg-blue-50 text-sm text-blue-600 transition-colors">
                                 <span>🏪</span>Quản lý shop
                               </div>
                             </Link>
                           )}
                           {user.role === "admin" && (
-                            <Link href="/admin/dashboard" onClick={() => setMenuOpen(false)}>
+                            <Link
+                              href="/admin/dashboard"
+                              onClick={() => setMenuOpen(false)}
+                            >
                               <div className="flex items-center gap-2.5 px-4 py-2 hover:bg-purple-50 text-sm text-purple-600 transition-colors">
                                 <span>⚙️</span>Admin Panel
                               </div>
@@ -131,7 +191,10 @@ export function Navbar() {
                       {user?.role === "buyer" && (
                         <>
                           <div className="border-t border-gray-100 my-1" />
-                          <Link href="/become-vendor" onClick={() => setMenuOpen(false)}>
+                          <Link
+                            href="/become-vendor"
+                            onClick={() => setMenuOpen(false)}
+                          >
                             <div className="flex items-center gap-2.5 px-4 py-2 hover:bg-emerald-50 text-sm text-emerald-600 transition-colors">
                               <span>🌱</span>Trở thành nhà cung cấp
                             </div>
@@ -141,7 +204,10 @@ export function Navbar() {
 
                       <div className="border-t border-gray-100 mt-1 pt-1">
                         <button
-                          onClick={() => { logout(); setMenuOpen(false); }}
+                          onClick={() => {
+                            logout();
+                            setMenuOpen(false);
+                          }}
                           className="w-full flex items-center gap-2.5 px-4 py-2 hover:bg-red-50 text-sm text-red-500 transition-colors"
                         >
                           <span>🚪</span>Đăng xuất
@@ -154,10 +220,22 @@ export function Navbar() {
             ) : (
               <Link href="/login">
                 <button className="flex flex-col items-center p-2 hover:bg-emerald-50 rounded-xl transition-colors group">
-                  <svg className="w-6 h-6 text-gray-600 group-hover:text-emerald-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  <svg
+                    className="w-6 h-6 text-gray-600 group-hover:text-emerald-600 transition-colors"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
                   </svg>
-                  <span className="text-[10px] text-gray-500 group-hover:text-emerald-600 hidden sm:block">Đăng nhập</span>
+                  <span className="text-[10px] text-gray-500 group-hover:text-emerald-600 hidden sm:block">
+                    Đăng nhập
+                  </span>
                 </button>
               </Link>
             )}
@@ -168,11 +246,23 @@ export function Navbar() {
         <nav className="flex items-center gap-1 pb-2 overflow-x-auto scrollbar-hide">
           {[
             { label: "Tất cả", href: "/products" },
-            { label: "Thảo mộc khô", href: "/products?categorySlug=thao-moc-kho" },
+            {
+              label: "Thảo mộc khô",
+              href: "/products?categorySlug=thao-moc-kho",
+            },
             { label: "Tinh dầu", href: "/products?categorySlug=tinh-dau" },
-            { label: "Trà thảo mộc", href: "/products?categorySlug=tra-thao-moc" },
-            { label: "Bột thảo mộc", href: "/products?categorySlug=bot-thao-moc" },
-            { label: "Chăm sóc da", href: "/products?categorySlug=cham-soc-da" },
+            {
+              label: "Trà thảo mộc",
+              href: "/products?categorySlug=tra-thao-moc",
+            },
+            {
+              label: "Bột thảo mộc",
+              href: "/products?categorySlug=bot-thao-moc",
+            },
+            {
+              label: "Chăm sóc da",
+              href: "/products?categorySlug=cham-soc-da",
+            },
             { label: "Bán chạy", href: "/products?sortBy=soldCount" },
             { label: "Mới nhất", href: "/products?sortBy=createdAt" },
           ].map((item) => (

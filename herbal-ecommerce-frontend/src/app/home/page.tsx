@@ -7,11 +7,8 @@ import { Navbar } from "../../components/layout/Navbar";
 import { Footer } from "../../components/layout/Footer";
 import { HeroBanner } from "../../components/home/HeroBanner";
 import { ProductCard } from "../../components/product/ProductCard";
-import {
-  productsService,
-  Product,
-  Category,
-} from "../../services/products.service";
+import { productsService, Product } from "../../services/products.service";
+import { categoriesService, Category } from "../../services/categories.service";
 
 export default function HomePage() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -24,7 +21,7 @@ export default function HomePage() {
     const fetchAll = async () => {
       try {
         const [catsRes, newRes, hotRes] = await Promise.all([
-          productsService.getCategories(),
+          categoriesService.getCategories(),
           productsService.getProducts({
             limit: 8,
             sortBy: "createdAt",

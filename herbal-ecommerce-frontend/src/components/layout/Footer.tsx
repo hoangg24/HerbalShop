@@ -15,11 +15,16 @@ export function Footer() {
               <span className="font-bold text-lg">Herbal Shop</span>
             </div>
             <p className="text-emerald-300 text-sm leading-relaxed">
-              Nơi cung cấp các sản phẩm thảo mộc tự nhiên chất lượng cao từ khắp nơi trên Việt Nam.
+              Nơi cung cấp các sản phẩm thảo mộc tự nhiên chất lượng cao từ khắp
+              nơi trên Việt Nam.
             </p>
             <div className="flex gap-3 mt-4">
               {["Facebook", "Instagram", "Youtube"].map((s) => (
-                <a key={s} href="#" className="w-8 h-8 bg-emerald-800 hover:bg-emerald-700 rounded-lg flex items-center justify-center text-xs transition-colors">
+                <a
+                  key={s}
+                  href="#"
+                  className="w-8 h-8 bg-emerald-800 hover:bg-emerald-700 rounded-lg flex items-center justify-center text-xs transition-colors"
+                >
                   {s[0]}
                 </a>
               ))}
@@ -60,7 +65,10 @@ export function Footer() {
               <ul className="space-y-2">
                 {col.links.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-emerald-300 hover:text-white text-sm transition-colors">
+                    <Link
+                      href={link.href}
+                      className="text-emerald-300 hover:text-white text-sm transition-colors"
+                    >
                       {link.label}
                     </Link>
                   </li>
@@ -71,8 +79,12 @@ export function Footer() {
         </div>
 
         <div className="border-t border-emerald-800 mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-emerald-400 text-xs">© 2025 Herbal Shop. All rights reserved.</p>
-          <p className="text-emerald-400 text-xs">Hotline: 0901 234 567 | Email: support@herbalshop.vn</p>
+          <p className="text-emerald-400 text-xs">
+            © 2026 Herbal Shop. All rights reserved.
+          </p>
+          <p className="text-emerald-400 text-xs">
+            Hotline: 0856694757 | Email: tranhuyhoanga6@gmail.com
+          </p>
         </div>
       </div>
     </footer>
