@@ -12,6 +12,7 @@ import authRoute from "./modules/auth/auth.route";
 import { errorHandler, notFound } from "./middlewares/errorHandler";
 import { env } from "./config/env";
 import usersRoute from "./modules/users/users.route";
+import vendorsRoute from "./modules/vendors/vendors.route";
 const app = express();
 
 // ── Security middlewares ──────────────────────────────────────
@@ -67,11 +68,11 @@ app.get("/health", (_req, res) => {
 // ── Routes ────────────────────────────────────────────────────
 app.use("/api/auth", authLimiter, authRoute);
 app.use("/api/users", usersRoute);
-
+app.use("/api/vendors", vendorsRoute);
 // Các modules tiếp theo sẽ thêm vào đây:
 // app.use('/api/products', productRoute)
 // app.use('/api/categories', categoryRoute)
-// app.use('/api/vendors', vendorRoute)
+
 // app.use('/api/orders', orderRoute)
 // app.use('/api/payments', paymentRoute)
 // app.use('/api/reviews', reviewRoute)
