@@ -13,6 +13,8 @@ import { errorHandler, notFound } from "./middlewares/errorHandler";
 import { env } from "./config/env";
 import usersRoute from "./modules/users/users.route";
 import vendorsRoute from "./modules/vendors/vendors.route";
+import productsRoute from "./modules/products/products.route";
+import categoriesRoute from "./modules/categories/categories.route";
 const app = express();
 
 // ── Security middlewares ──────────────────────────────────────
@@ -69,9 +71,9 @@ app.get("/health", (_req, res) => {
 app.use("/api/auth", authLimiter, authRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/vendors", vendorsRoute);
+app.use("/api/products", productsRoute);
+app.use("/api/categories", categoriesRoute);
 // Các modules tiếp theo sẽ thêm vào đây:
-// app.use('/api/products', productRoute)
-// app.use('/api/categories', categoryRoute)
 
 // app.use('/api/orders', orderRoute)
 // app.use('/api/payments', paymentRoute)
