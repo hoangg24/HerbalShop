@@ -50,6 +50,7 @@ export interface ProductsQuery {
   maxPrice?: number;
   sortBy?: "createdAt" | "price" | "soldCount" | "viewCount";
   sortOrder?: "asc" | "desc";
+  status?: string;
 }
 
 export const productsService = {

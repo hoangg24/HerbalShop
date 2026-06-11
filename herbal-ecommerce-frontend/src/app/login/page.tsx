@@ -55,8 +55,10 @@ export default function LoginPage() {
       ).role;
       if (role === "admin") {
         router.push("/admin/dashboard");
+      } else if (role === "vendor") {
+        router.push("/vendor/dashboard");
       } else {
-        router.push("/");
+        router.push("/home");
       }
     } catch (err) {
       const message = getErrorMessage(err);
