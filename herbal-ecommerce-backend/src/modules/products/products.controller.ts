@@ -11,10 +11,8 @@ export const getProducts = async (
   next: NextFunction,
 ) => {
   try {
-    const { products, meta } = await productsService.getProducts(
-      req.query as any,
-    );
-    return sendSuccess(res, products, "Success", 200, meta);
+    const { data, meta } = await productsService.getProducts(req.query as any);
+    return sendSuccess(res, data, "Success", 200, meta);
   } catch (err) {
     next(err);
   }

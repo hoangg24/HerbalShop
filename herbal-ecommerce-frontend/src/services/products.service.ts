@@ -1,5 +1,11 @@
 // src/services/products.service.ts
 import axios from "axios";
+import {
+  ReactElement,
+  JSXElementConstructor,
+  ReactNode,
+  ReactPortal,
+} from "react";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -21,6 +27,7 @@ export interface Product {
   stock: number;
   unit: string;
   status: string;
+  weight: number;
   soldCount: number;
   viewCount: number;
   createdAt: string;

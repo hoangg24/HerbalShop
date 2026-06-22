@@ -1,6 +1,5 @@
 "use client";
 // src/app/page.tsx
-
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Navbar } from "../../components/layout/Navbar";
@@ -14,7 +13,6 @@ export default function HomePage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [newProducts, setNewProducts] = useState<Product[]>([]);
   const [hotProducts, setHotProducts] = useState<Product[]>([]);
-  const [saleProducts, setSaleProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -42,6 +40,7 @@ export default function HomePage() {
         setIsLoading(false);
       }
     };
+
     fetchAll();
   }, []);
 
@@ -50,7 +49,6 @@ export default function HomePage() {
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 py-6 space-y-10">
-        {/* Hero Banner */}
         <HeroBanner />
 
         {/* Features bar */}
@@ -107,41 +105,18 @@ export default function HomePage() {
               ))}
             </div>
           ) : categories.length === 0 ? (
-            // Placeholder categories khi chưa có data
-            <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
-              {[
-                { name: "Thảo mộc khô", emoji: "🌾", slug: "thao-moc-kho" },
-                { name: "Tinh dầu", emoji: "💧", slug: "tinh-dau" },
-                { name: "Trà thảo mộc", emoji: "🍵", slug: "tra-thao-moc" },
-                { name: "Bột thảo mộc", emoji: "🌿", slug: "bot-thao-moc" },
-                { name: "Chăm sóc da", emoji: "✨", slug: "cham-soc-da" },
-                { name: "Xem thêm", emoji: "➕", slug: "" },
-              ].map((cat) => (
-                <Link
-                  key={cat.slug}
-                  href={
-                    cat.slug
-                      ? `/products?categorySlug=${cat.slug}`
-                      : "/products"
-                  }
-                >
-                  <div className="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl border border-gray-100 hover:border-emerald-200 hover:shadow-md hover:shadow-emerald-50 transition-all group">
-                    <span className="text-3xl group-hover:scale-110 transition-transform">
-                      {cat.emoji}
-                    </span>
-                    <p className="text-xs font-medium text-gray-700 text-center leading-tight">
-                      {cat.name}
-                    </p>
-                  </div>
-                </Link>
-              ))}
+            // ✅ Empty state thật, bỏ hardcode giả
+            <div className="text-center py-12 bg-white rounded-2xl border border-gray-100">
+              <span className="text-4xl block mb-3">🌿</span>
+              <p className="text-gray-500 text-sm">Chưa có danh mục nào</p>
             </div>
           ) : (
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
               {categories.slice(0, 6).map((cat) => (
                 <Link key={cat.id} href={`/products?categoryId=${cat.id}`}>
-                  <div className="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl border border-gray-100 hover:border-emerald-200 hover:shadow-md transition-all group">
+                  <div className="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl border border-gray-100 hover:border-emerald-200 hover:shadow-md hover:shadow-emerald-50 transition-all group">
                     {cat.imageUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={cat.imageUrl}
                         alt={cat.name}
