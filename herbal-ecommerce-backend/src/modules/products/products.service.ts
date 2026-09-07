@@ -37,7 +37,13 @@ const productSelect = {
   createdAt: true,
   updatedAt: true,
   vendor: {
-    select: { id: true, shopName: true, slug: true, logoUrl: true },
+    select: {
+      id: true,
+      shopName: true,
+      slug: true,
+      logoUrl: true,
+      status: true,
+    },
   },
   category: {
     select: { id: true, name: true, slug: true },
@@ -57,7 +63,7 @@ export const getProducts = async (query: GetProductsQuery) => {
   const sortOrder = query.sortOrder || "desc"; // ✅ default sortOrder
   const skip = (page - 1) * limit;
 
-  const where: any = { status: "active" };
+  const where: any = { status: "active", vendor: { status: "active" } };
 
   if (query.search) {
     where.OR = [
@@ -85,7 +91,7 @@ export const getProducts = async (query: GetProductsQuery) => {
   ]);
 
   return {
-    data: products, // ✅ đổi key thành "data" để khớp với frontend đang lấy newRes.data
+    data: products,
     meta: { page, limit, total, totalPages: Math.ceil(total / limit) },
   };
 };
@@ -110,7 +116,11 @@ export const getProductBySlug = async (slug: string) => {
     },
   });
 
-  if (!product || product.status !== "active") {
+  if (
+    !product ||
+    product.status !== "active" ||
+    product.vendor.status !== "active"
+  ) {
     throw { status: 404, message: "Không tìm thấy sản phẩm" };
   }
 

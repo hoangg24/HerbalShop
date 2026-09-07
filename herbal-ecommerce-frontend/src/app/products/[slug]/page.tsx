@@ -8,6 +8,7 @@ import { Navbar } from "../../../components/layout/Navbar";
 import { Footer } from "../../../components/layout/Footer";
 import { productsService, Product } from "../../../services/products.service";
 import { getErrorMessage } from "../../../utils/error";
+import { useCart } from "../../../context/CartContext";
 
 interface Review {
   id: string;
@@ -22,6 +23,12 @@ interface ProductDetail extends Product {
 }
 
 export default function ProductDetailPage() {
+  const { addItem } = useCart();
+  const [adding, setAdding] = useState(false);
+  const [cartMsg, setCartMsg] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
   const { slug } = useParams<{ slug: string }>();
   const [product, setProduct] = useState<ProductDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -60,7 +67,19 @@ export default function ProductDetailPage() {
       style: "currency",
       currency: "VND",
     }).format(price);
-
+  const handleAddToCart = async () => {
+    if (!product) return;
+    setAdding(true);
+    setCartMsg(null);
+    try {
+      await addItem(product, quantity);
+      setCartMsg({ type: "success", text: "Đã giỏ hàng" });
+    } catch (err) {
+      setCartMsg({ type: "error", text: getErrorMessage(err) });
+    } finally {
+      setAdding(false);
+    }
+  };
   const discountPercent = product?.salePrice
     ? Math.round(((product.price - product.salePrice) / product.price) * 100)
     : 0;
@@ -316,10 +335,11 @@ export default function ProductDetailPage() {
             {/* CTA buttons */}
             <div className="flex gap-3 pt-2">
               <button
-                disabled={product.stock === 0}
+                onClick={handleAddToCart}
+                disabled={product.stock === 0 || adding}
                 className="flex-1 py-3.5 border-2 border-emerald-600 text-emerald-600 font-semibold rounded-xl hover:bg-emerald-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-sm"
               >
-                🛒 Thêm vào giỏ
+                {adding ? "Đang thêm..." : "🛒 Thêm vào giỏ"}
               </button>
               <button
                 disabled={product.stock === 0}
@@ -328,7 +348,17 @@ export default function ProductDetailPage() {
                 ⚡ Mua ngay
               </button>
             </div>
-
+            {cartMsg && (
+              <p
+                className={`text-sm ${
+                  cartMsg.type === "success"
+                    ? "text-emerald-600"
+                    : "text-red-500"
+                }`}
+              >
+                {cartMsg.text}
+              </p>
+            )}
             {/* Trust badges */}
             <div className="grid grid-cols-3 gap-3 pt-2 border-t border-gray-100">
               {[

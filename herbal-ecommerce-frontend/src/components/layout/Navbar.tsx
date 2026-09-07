@@ -5,9 +5,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../context/AuthContext";
-
+import { useCart } from "../../context/CartContext";
 export function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
+  const { totalItems } = useCart();
   const router = useRouter();
   const [searchInput, setSearchInput] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -30,7 +31,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center gap-4 h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+          <Link href="/home" className="flex items-center gap-2 flex-shrink-0">
             <div className="w-9 h-9 bg-emerald-600 rounded-xl flex items-center justify-center shadow-sm">
               <span className="text-white text-lg">🌿</span>
             </div>
@@ -95,9 +96,11 @@ export function Navbar() {
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-                0
-              </span>
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                  {totalItems > 99 ? "99+" : totalItems}
+                </span>
+              )}
               <span className="text-[10px] text-gray-500 group-hover:text-emerald-600 hidden sm:block">
                 Giỏ hàng
               </span>

@@ -15,6 +15,7 @@ import usersRoute from "./modules/users/users.route";
 import vendorsRoute from "./modules/vendors/vendors.route";
 import productsRoute from "./modules/products/products.route";
 import categoriesRoute from "./modules/categories/categories.route";
+import cartRoute from "./modules/cart/cart.route";
 const app = express();
 
 // ── Security middlewares ──────────────────────────────────────
@@ -73,6 +74,7 @@ app.use("/api/users", usersRoute);
 app.use("/api/vendors", vendorsRoute);
 app.use("/api/products", productsRoute);
 app.use("/api/categories", categoriesRoute);
+app.use("/api/cart", cartRoute);
 // Các modules tiếp theo sẽ thêm vào đây:
 
 // app.use('/api/orders', orderRoute)

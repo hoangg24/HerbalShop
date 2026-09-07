@@ -1,19 +1,28 @@
 // src/components/product/ProductCard.tsx
 import Link from "next/link";
 import { Product } from "../../services/products.service";
+import { useCart } from "../../context/CartContext";
+import { getErrorMessage } from "../../utils/error";
+import { useState } from "react";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const primaryImage = product.images.find((img) => img.isPrimary) || product.images[0];
+  const [adding, setAdding] = useState(false);
+  const { addItem } = useCart();
+  const primaryImage =
+    product.images.find((img) => img.isPrimary) || product.images[0];
   const discountPercent = product.salePrice
     ? Math.round(((product.price - product.salePrice) / product.price) * 100)
     : 0;
 
   const formatPrice = (price: number) =>
-    new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price);
+    new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(price);
 
   return (
     <Link href={`/products/${product.slug}`}>
@@ -27,7 +36,9 @@ export function ProductCard({ product }: ProductCardProps) {
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-5xl">🌿</div>
+            <div className="w-full h-full flex items-center justify-center text-5xl">
+              🌿
+            </div>
           )}
 
           {/* Badges */}
@@ -50,9 +61,20 @@ export function ProductCard({ product }: ProductCardProps) {
           </div>
 
           {/* Quick add to cart */}
-          <div className="absolute bottom-0 left-0 right-0 bg-emerald-600 text-white text-xs font-medium py-2 text-center translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-            + Thêm vào giỏ hàng
-          </div>
+          <button
+            onClick={(e) => {
+              e.preventDefault(); // tránh trigger Link bao ngoài (nếu ProductCard có bọc Link)
+              e.stopPropagation();
+              setAdding(true);
+              addItem(product, 1)
+                .catch((err) => alert(getErrorMessage(err)))
+                .finally(() => setAdding(false));
+            }}
+            disabled={adding}
+            className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-colors"
+          >
+            {adding ? "Đang thêm..." : "Thêm vào giỏ"}
+          </button>
         </div>
 
         {/* Info */}
@@ -77,7 +99,9 @@ export function ProductCard({ product }: ProductCardProps) {
                 {formatPrice(product.price)}
               </span>
             )}
-            <span className="text-[10px] text-gray-400 ml-auto">/{product.unit}</span>
+            <span className="text-[10px] text-gray-400 ml-auto">
+              /{product.unit}
+            </span>
           </div>
 
           {/* Shop + stats */}
